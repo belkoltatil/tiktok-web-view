@@ -19,7 +19,13 @@ def index():
         pre_tag = completed_soup.find('pre')
         if pre_tag:
             pre_text = pre_tag.get_text().strip()
-            video_tag = f'<video controls><source src="{pre_text}" type="video/mp4"></video>'
+            video_content = requests.get(pre_text).content
+
+            video_filename = f'video_{len(videos)}.mp4'
+            with open(video_filename, 'wb') as f:
+                f.write(video_content)
+
+            video_tag = f'<video controls><source src="{video_filename}" type="video/mp4"></video>'
             videos.append(video_tag)
 
     return render_template('index.html', videos=videos)
