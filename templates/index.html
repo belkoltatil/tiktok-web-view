@@ -4,8 +4,11 @@
     <title>Web Portal</title>
 </head>
 <body>
-    {% for video in videos %}
-        {{ video }}
-    {% endfor %}
+    <h1>Values:</h1>
+    <ul>
+        {% for link in links %}
+            <li>{{ link }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
