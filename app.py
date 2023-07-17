@@ -16,10 +16,11 @@ def index():
         completed_url = 'https://hello-world-dawn-sunset-aa71.devdesk.workers.dev/?url=' + href
         completed_response = requests.get(completed_url)
         completed_soup = BeautifulSoup(completed_response.text, 'html.parser')
-        pre_text = completed_soup.find('pre').get_text()
-
-        video_tag = f'<video src="{pre_text}"></video>'
-        videos.append(video_tag)
+        pre_tag = completed_soup.find('pre')
+        if pre_tag:
+            pre_text = pre_tag.get_text().strip()
+            video_tag = f'<video controls><source src="{pre_text}" type="video/mp4"></video>'
+            videos.append(video_tag)
 
     return render_template('index.html', videos=videos)
 
